@@ -1,0 +1,10 @@
+read_samples (takes a filename and reads it line by line and returns an array for each line (2d-array))
+
+sort
+*median (takes a sorted array with odd number of elements and returns its median)
+interquartile range (calculates IQR using sort and *median functions)
+remove_outlier(takes an array and uses other functions to remove outliers without effecting the original array)
+
+average 
+calc_wqi (takes an array of qi and an array of wi that contains values for each parameter and resturns wqi)
+water_type (takes wqi and returns the water type)
