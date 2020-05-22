@@ -2,28 +2,34 @@
 #include <util/util.h>
 #include <assert.h>
 
-#define PARAMS 9
+#define PARAMS 10
 #define SAMPLES 11
 
-double data[9][11] = {
-    {96, 100, 20, 10, 44, 102, 113, 90, 88, 108, 95},
-    {45.5, 50, 43.8, 51, 44, 43, 58, 70, 55, 46, 42},
-    {29.5, 30, 20, 29, 28.5, 40, 25, 24, 27, 27.5, 30},
-    {10, 9, 10.5, 10, 30, 7, 9, 9.5, 7, 8, 7.5},
-    {3, 3.2, 3, 2.8, 2.9, 7, 3, 3.2, 1, 1.5, 3.5},
-    {1.8, 1, 2, 2.1, 1.9, 2, 10, 1.7, 1.5, 2, 1.4},
-    {8.3, 20, 10, 9, 10.2, 7.9, 8.2, 8, 9, 8.1, 9.2},
-    {3.0, 2.8, 2.9, 3, 7, 2.7, 2.6, 3, 3.1, 3.3, 3.8},
-    {1.2, 1.2, 1.1, 1, 1.2, 1.3, 4, 1.1, 1, 1.3, 1.4}};
+// double data[PARAMS][SAMPLES] = {
+//     {7.8, 7.5, 7, 7, 8, 2, 7, 4, 13, 6, 7},
+//     {96, 100, 20, 10, 44, 102, 113, 90, 88, 108, 95},
+//     {45.5, 50, 43.8, 51, 44, 43, 58, 70, 55, 46, 42},
+//     {29.5, 30, 20, 29, 28.5, 40, 25, 24, 27, 27.5, 30},
+//     {10, 9, 10.5, 10, 30, 7, 9, 9.5, 7, 8, 7.5},
+//     {3, 3.2, 3, 2.8, 2.9, 7, 3, 3.2, 1, 1.5, 3.5},
+//     {1.8, 1, 2, 2.1, 1.9, 2, 10, 1.7, 1.5, 2, 1.4},
+//     {8.3, 20, 10, 9, 10.2, 7.9, 8.2, 8, 9, 8.1, 9.2},
+//     {3.0, 2.8, 2.9, 3, 7, 2.7, 2.6, 3, 3.1, 3.3, 3.8},
+//     {1.2, 1.2, 1.1, 1, 1.2, 1.3, 4, 1.1, 1, 1.3, 1.4}};
+
+double data[PARAMS][SAMPLES];
 
 char *test_read_samples()
 {
+
     FILE *stream = fopen("river1.dat", "r");
     check(stream, "failed to open file river1.dat");
     read_samples(stream, data, PARAMS, SAMPLES);
-    mu_assert(data[0][0] == 96, "file read failed, expected different value at postiion");
-    mu_assert(data[2][4] == 28.5, "file read failed, expected different value at position");
-    mu_assert(data[8][10] == 1.4, "file read failed, expected different value at postiion");
+    mu_assert(data[0][0] == 7.8, "file read failed, expected different value at postiion");
+    mu_assert(data[0][10] == 7, "file read failed, expected different value at postiion");
+    mu_assert(data[1][0] == 96, "file read failed, expected different value at postiion");
+    mu_assert(data[3][4] == 28.5, "file read failed, expected different value at position");
+    mu_assert(data[9][10] == 1.4, "file read failed, expected different value at postiion");
 
     fclose(stream);
     return NULL;

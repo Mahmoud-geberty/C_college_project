@@ -1,7 +1,7 @@
 #include <util/util.h>
 #include "dbg.h"
 
-#define PARAMS 9
+#define PARAMS 10
 #define SAMPLES 11
 
 int main() {
@@ -16,11 +16,27 @@ int main() {
 
     // arrays that keep track of how many outliers
     // are removed in order to find appropriate Vi values
-    int start[SAMPLES];
-    int end[SAMPLES];
+    int start[PARAMS] = {};
+    int end[PARAMS] = {};
 
     // observed values for each parameter (row)
     double vi[PARAMS];
+
+    // ideal values of each param, 0 except for PH = 7
+    double vd[PARAMS] = {0};
+    vd[0] = 7;
+
+    // quality index (qi) of each parameter
+    double qi[PARAMS];
+
+    // weight index of each parameter
+    double wi[PARAMS] = {0.2190, 0.3710, 0.0037, 0.0062, 0.0250, 0.0074, 0.0412, 0.0124, 0.3723, 0.3723};
+
+    // temporary standard values for the time being
+    double fake_si[PARAMS] = {9, 96, 50, 40, 9, 4, 2, 10, 3, 1.2};
+
+    // water quality index
+    double wqi = 0;
 
     double var, interq;
 
@@ -65,6 +81,7 @@ int main() {
                 break;
             }
         }
+        rc = 1;
     }
 
     // find Vi for each parameter (row);
@@ -72,8 +89,20 @@ int main() {
         vi[j] = average(data[j], start[j], end[j]);
     }
 
-    
+    // find qi for each parameter
+    printf("qi: ");
+    for (i = 0; i < PARAMS; i++) {
+        qi[i] = (vi[i] - vd[i]) / (fake_si[i] - vd[i]) * 100;
+        printf("%lf ", qi[i]);
+    }
+    printf("\n");
 
+    // find wqi using qi and wi   
+     for (i = 0; i < PARAMS; i++) {
+         wqi += qi[i] * wi[i];
+     }
+     printf("\nwqi of this river is: %lf\n", wqi);
+    
 
     fclose(input);
     return 0;

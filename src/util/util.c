@@ -102,7 +102,7 @@ double median(double arr[], int size)
 // returns the average/mean of the given array
 double average(double arr[], int start_idx, int end_idx)
 {
-    int i; // loop counter
+    int i = 0; // loop counter
     double sum = 0;
 
     int size = (end_idx - start_idx) + 1;
