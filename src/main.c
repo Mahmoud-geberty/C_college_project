@@ -1,8 +1,11 @@
+#include <string.h>
+
 #include <util/util.h>
 #include "dbg.h"
 
 #define PARAMS 10
 #define SAMPLES 11
+#define STR_SIZE 50
 
 int main() {
     double data[PARAMS][SAMPLES];
@@ -37,6 +40,8 @@ int main() {
 
     // water quality index
     double wqi = 0;
+
+    char water_type[STR_SIZE];
 
     double var, interq;
 
@@ -93,7 +98,7 @@ int main() {
     printf("qi: ");
     for (i = 0; i < PARAMS; i++) {
         qi[i] = (vi[i] - vd[i]) / (fake_si[i] - vd[i]) * 100;
-        printf("%lf ", qi[i]);
+        printf("%.2lf ", qi[i]);
     }
     printf("\n");
 
@@ -101,7 +106,22 @@ int main() {
      for (i = 0; i < PARAMS; i++) {
          wqi += qi[i] * wi[i];
      }
-     printf("\nwqi of this river is: %lf\n", wqi);
+     printf("\nwqi of this river is: %.2lf\n\n", wqi);
+
+    // determine the water type according ot wqi
+    if (wqi <= 50) {
+        strncpy(water_type, "Excellent water", STR_SIZE);
+    } else if (wqi <= 100) {
+        strncpy(water_type, "Good water", STR_SIZE);
+    } else if (wqi <= 200) {
+        strncpy(water_type, "Poor water", STR_SIZE);
+    } else if (wqi <= 300) {
+        strncpy(water_type, "Very poor water", STR_SIZE);
+    } else {
+        strncpy(water_type, "Unfit for drinking", STR_SIZE);
+    }
+
+    printf("Water type: %s\n", water_type);
     
 
     fclose(input);
