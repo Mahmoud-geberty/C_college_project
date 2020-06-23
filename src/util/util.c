@@ -27,7 +27,7 @@ void bubble_sort(double arr[][11], int x_dim, int y_dim)
 {
     int i = 0, j = 0; // loop counters
     int row = 0;
-    int hold; // temporary storage
+    double hold; // temporary storage
 
     do
     {
@@ -189,10 +189,9 @@ int remove_outliers(double data[], int size, double variance, double iqr)
             // delete first non_zero element of the array
             for (i = 0; i < size; i++)
             {
-                if (data[i])
+                if (data[i] >= 0)
                 {
-                    debug("to be deleted: %.2lf when i is: %d", data[i], i);
-                    data[i] = 0;
+                    data[i] = -1;
                     return 1;
                 }
             }
@@ -201,10 +200,9 @@ int remove_outliers(double data[], int size, double variance, double iqr)
         {
             for (i = size - 1; i > 0; i--)
             {
-                if (data[i] > 0)
+                if (data[i] >= 0)
                 {
-                    debug("to be deleted: %.2lf when i is: %d", data[i], i);
-                    data[i] = 0;
+                    data[i] = -1;
                     return 2;
                 }
             }
@@ -215,7 +213,7 @@ int remove_outliers(double data[], int size, double variance, double iqr)
 
 // takes a target file and a target empty array and array dimensions as input
 //
-// reads the given file and populated the given 2D-array
+// reads the given file and populates the given 2D-array
 void read_samples(FILE *file, double data[][11], int x_dim, int y_dim)
 {
     int i, j; // loop counters

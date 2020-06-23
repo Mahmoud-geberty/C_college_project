@@ -223,7 +223,7 @@ char *test_remove_outliers()
     double interquartile = iqr(test_data1, start_idx, end_idx);
 
     rc = remove_outliers(test_data1, 8, var, interquartile);
-    mu_assert(test_data1[7] == 0, "failed to remove an outlier");
+    mu_assert(test_data1[7] == -1, "failed to remove an outlier");
     mu_assert(rc == 2, "wrong return value from remove_outliers");
 
     end_idx--;
@@ -231,7 +231,7 @@ char *test_remove_outliers()
     interquartile = iqr(test_data1, start_idx, end_idx);
 
     rc = remove_outliers(test_data1, 8, var, interquartile);
-    mu_assert(test_data1[0] == 0, "failed to remove an outlier");
+    mu_assert(test_data1[0] == -1, "failed to remove an outlier");
     mu_assert(rc == 1, "wrong return value from remove_outliers");
 
     start_idx++;
