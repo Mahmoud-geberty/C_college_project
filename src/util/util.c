@@ -34,7 +34,7 @@ void bubble_sort(double arr[][11], int x_dim, int y_dim)
         for (i = 1; i < y_dim; i++)
         {
 
-            for (j = 0; j < y_dim - 1; j++)
+            for (j = 0; j < 8 - 1; j++)
             {
                 if (arr[row][j] > arr[row][j + 1])
                 {
